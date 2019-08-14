@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { join } from 'path';
       logging: true,
     }),
     UserModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
