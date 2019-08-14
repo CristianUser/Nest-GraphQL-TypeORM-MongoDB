@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserInput } from './user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { MongoRepository } from 'typeorm';
-import * as uuid from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -17,10 +17,12 @@ export class UserService {
   }
 
   async create(input: UserInput): Promise<User> {
-    const user = new User();
-    user._id = uuid.v4();
-    user.username = input.username;
-    user.password = input.password;
-    return this.userRepository.save(user);
+    const user = new User(input);
+    user.password = await bcrypt.hash(user.password, 10);
+    try {
+      return await this.userRepository.save(user);
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 }
