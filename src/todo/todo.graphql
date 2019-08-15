@@ -1,5 +1,6 @@
 type Query {
     todos: [Todo]
+    todo(_id: ID): Todo
 }
 
 type Todo {
@@ -12,7 +13,7 @@ type Todo {
 input TodoInput {
     title: String!
     content: String
-    user: User
+    user: String
 }
 
 type Mutation {

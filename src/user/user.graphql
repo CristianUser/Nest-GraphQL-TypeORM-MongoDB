@@ -1,7 +1,8 @@
 type User {
   _id: String!
-  username: String!
-  password: String!
+  username: String
+  password: String
+  friends: [User]
 }
 
 input UserInput {
@@ -12,8 +13,15 @@ input UserInput {
 type Query {
   hello: String!
   users: [User!]
+  user(_id: ID): User
 }
 
 type Mutation {
   createUser(input: UserInput!): User
+  addFriend(input: AddFriendInput!): User
+}
+
+input AddFriendInput {
+  user: String!
+  newFriend: String!
 }

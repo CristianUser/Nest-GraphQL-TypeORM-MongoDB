@@ -27,7 +27,7 @@ export class User {
   @Column()
   password: string;
   @Column()
-  saltSecret: string;
+  friends: string[];
 
   constructor(input?: UserInput) {
     if (input) {
@@ -35,10 +35,6 @@ export class User {
       this.password = input.password;
     }
   }
-
-  // async hashPassword(pass: string) {
-  //   return await bcrypt.hash(pass, 10);
-  // }
 
   async verifyPassword(pass: string) {
     return await bcrypt.compare(pass, this.password);

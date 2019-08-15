@@ -12,7 +12,15 @@ export class TodoService {
       ) {}
 
     async createTodo(input) {
-        // const newTodo = new Todo(input);
-        // return await newTodo.
+        const newTodo = new Todo(input);
+        return await this.todoRepository.save(newTodo);
+    }
+
+    async findAll(): Promise<Todo[]> {
+        return await this.todoRepository.find();
+    }
+
+    async findOne(_id: string ): Promise<Todo> {
+        return await this.todoRepository.findOne(_id);
     }
 }

@@ -13,4 +13,12 @@ export class Todo {
 
     @Column()
     user: string;
+
+    constructor(input?) {
+        if (input) {
+            this.description = input.description;
+            this.title = input.title;
+            this.user = input.user;
+        }
+    }
 }
